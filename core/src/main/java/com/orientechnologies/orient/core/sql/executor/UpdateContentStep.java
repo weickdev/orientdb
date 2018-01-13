@@ -37,10 +37,12 @@ public class UpdateContentStep extends AbstractExecutionStep {
           if (!(result.getElement().get() instanceof ODocument)) {
             ((OResultInternal) result).setElement(result.getElement().get().getRecord());
           }
-          if (!(result.getElement().get() instanceof ODocument)) {
-            return result;
+          if (result.getElement().get() instanceof ODocument) {
+            handleContent((ODocument) result.getElement().get(), ctx);
+          }else if(result.getElement().get().getRecord() instanceof ODocument){
+            handleContent(result.getElement().get().getRecord(), ctx);
           }
-          handleContent((ODocument) result.getElement().get(), ctx);
+
         }
         return result;
       }
